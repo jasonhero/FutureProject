@@ -10,6 +10,7 @@ function babelLoader() {
     exclude: /node_modules/,
     query: {
       cacheDirectory: true,
+      plugins: ['transform-runtime']
     },
   };
 }

@@ -1,10 +1,14 @@
+import Login from 'components/Login'
+
 
 function createRootRoute (store) {
 
   const rootRoute = {
     path: '/',
+    indexRoute: {
+      component: Login,
+    },
     childRoutes: [
-
     ]
   }
 

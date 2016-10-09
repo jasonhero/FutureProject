@@ -23,8 +23,8 @@ export default function configureStore(initialState) {
 
   // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
   if (module.hot) {
-    module.hot.accept('../reducers', () =>
-      store.replaceReducer(require('../reducers').default)
+    module.hot.accept('./rootReducer', () =>
+      store.replaceReducer(require('./rootReducer').default)
     );
   }
 
