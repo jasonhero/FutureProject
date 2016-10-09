@@ -44,6 +44,17 @@ class FetchApi {
     }
   }
 
+  resolveResponse(response) {
+    const contentType = response.headers.get('content-type')
+    if (!contentType) throw new Error('No content type specified!');
+
+    if (contentType.indexOf("application/json") !== -1) {
+      return response.json()
+    } else if (contentType.indexOf("application/text") !== -1) {
+      return response.text()
+    }
+  }
+
   attachToken() {
     const token = getToken()
     if (token) {
@@ -66,7 +77,7 @@ class FetchApi {
     if (merged_options.body) merged_options.body = JSON.stringify(merged_options.body);
     return fetch(merged_uri, merged_options)
       .then(this.checkStatus)
-      .then(response => response.json())
+      .then(this.resolveResponse)
   }
 
 }
