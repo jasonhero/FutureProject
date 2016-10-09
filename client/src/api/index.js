@@ -1,11 +1,11 @@
 import FetchApi from './fetchApi'
 
-const api = new FetchApi('http://test.com')
+const api = new FetchApi('http://localhost:4100')
 
 const endpoints = {
   login: (username, password) => (
     {
-      endpoint: '/login',
+      endpoint: '/account/login',
       request: {
         method: 'POST',
         body: {

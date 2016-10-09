@@ -12,7 +12,7 @@ import React from 'react';
 import '_static/css/main';
 
 import configureStore from './store/configureStore';
-
+import DevTools from 'containers/DevTools'
 
 export const store = configureStore({});
 
@@ -31,10 +31,13 @@ const appMountPoint = 'root';
 render((
   <Provider store={store}>
     <MuiThemeProvider muiTheme={muiTheme}>
-      <Router
-        history={browserHistory}
-        routes={createRootRoute(store)}
-      />
+      <div>
+        <DevTools />
+        <Router
+          history={browserHistory}
+          routes={createRootRoute(store)}
+        />
+      </div>
     </MuiThemeProvider>
   </Provider>
 ),

@@ -16,7 +16,7 @@ class FetchApi {
     Object.keys(endpoints).map(key => {
       let endpoint_schema = endpoints[key]
       api[key] = (...args) => {
-        this.makeRequest(endpoint_schema(...args))
+        return this.makeRequest(endpoint_schema(...args))
       }
     })
     return api;
@@ -35,6 +35,7 @@ class FetchApi {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       },
       timeout: 10000,
       mode: 'cors',
@@ -44,6 +45,7 @@ class FetchApi {
   makeRequest(options) {
     const merged_options = _.merge(this.getDefaultOptions(), options.request)
     const merged_uri = this.mergeEndpoint(options.endpoint)
+    if (merged_options.body) merged_options.body = JSON.stringify(merged_options.body);
     return fetch(merged_uri, merged_options)
       .then(this.checkStatus)
       .then(response => response.json())

@@ -12,6 +12,14 @@ class Login extends React.Component {
     }
   }
 
+  handleLogin = () => {
+    const { username, password } = this.state
+    this.props.login({
+      username,
+      password,
+    })
+  }
+
   render() {
      return (
        <div>
@@ -31,6 +39,7 @@ class Login extends React.Component {
              <RaisedButton
                primary={true}
                label="Login"
+               onClick={this.handleLogin}
                fullWidth={true} />
            </div>
          </div>
