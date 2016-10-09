@@ -1,14 +1,21 @@
-import Login from 'components/Login'
-
-
 function createRootRoute (store) {
 
   const rootRoute = {
     path: '/',
     indexRoute: {
-      component: Login,
+      component: require('./Login').default,
     },
     childRoutes: [
+      {
+        path: '/dashboard',
+        component: require('containers/AppWrap').default,
+        childRoutes: [
+          {
+            path: '/',
+            component: require('./Dashboard').default
+          }
+        ]
+      }
     ]
   }
 
