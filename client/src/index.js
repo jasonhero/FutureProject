@@ -22,7 +22,6 @@ import createRootRoute from './routes/rootRoute';
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: '#426DA9',
   },
 });
 
