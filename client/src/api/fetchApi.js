@@ -54,6 +54,7 @@ class FetchApi {
       }
     }
     return {}
+    // throw new Error('No token available')
   }
 
   makeRequest(options) {
