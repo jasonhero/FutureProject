@@ -2,8 +2,8 @@ import { AUTH_CHECK } from 'store/features/authentication/constants';
 
 function createRootRoute (store) {
 
-  const checkToken = () => {
-    store.dispatch({ type: AUTH_CHECK })
+  const checkToken = (nextState, replace, callback) => {
+    store.dispatch({ type: AUTH_CHECK, callback, replace })
   }
 
   const rootRoute = {
@@ -14,11 +14,11 @@ function createRootRoute (store) {
     childRoutes: [
       {
         onEnter: checkToken,
-        path: '/dashboard',
+        path: '/',
         component: require('containers/AppWrap').default,
         childRoutes: [
           {
-            path: '/',
+            path: 'dashboard',
             component: require('./Dashboard').default
           }
         ]

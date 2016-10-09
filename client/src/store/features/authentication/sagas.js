@@ -31,7 +31,10 @@ export function* loginFlow() {
       const task = yield fork(authorize, username, password)
       const action = yield take([c.LOGOUT, c.LOGIN_FAILURE])
 
-      if (action.type === c.LOGOUT) yield cancel(task);
+      if (action.type === c.LOGOUT) {
+        yield cancel(task)
+        yield call(browserHistory.push, '/')
+      }
 
       yield call(clearToken)
   }
@@ -41,8 +44,10 @@ function* authorizationCheck(action) {
   try {
     yield call(Api.authCheck)
     yield put({ type: c.AUTH_SUCCESS })
+    yield call(action.callback)
   } catch (error) {
-    yield call(browserHistory.push, '/')
+    yield call(action.replace, '/')
+    yield call(action.callback)
     yield put({ type: c.AUTH_FAILURE, error })
   }
 }
