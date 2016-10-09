@@ -2,6 +2,8 @@ require('es6-promise').polyfill();
 import 'isomorphic-fetch';
 import _ from 'lodash';
 
+import { getToken } from 'utils/storage'
+
 class FetchApi {
   constructor(url) {
     this.service = url;
@@ -42,8 +44,23 @@ class FetchApi {
     }
   }
 
+  attachToken() {
+    const token = getToken()
+    if (token) {
+      return {
+        headers: {
+          'x-authorization': token
+        }
+      }
+    }
+    return {}
+  }
+
   makeRequest(options) {
-    const merged_options = _.merge(this.getDefaultOptions(), options.request)
+    let merged_options = _.merge(this.getDefaultOptions(), options.request || {})
+    if (options.authorization) {
+      merged_options = _.merge(merged_options, this.attachToken())
+    }
     const merged_uri = this.mergeEndpoint(options.endpoint)
     if (merged_options.body) merged_options.body = JSON.stringify(merged_options.body);
     return fetch(merged_uri, merged_options)

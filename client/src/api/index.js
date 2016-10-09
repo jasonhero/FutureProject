@@ -15,6 +15,12 @@ const endpoints = {
       }
     }
   ),
+  authCheck: () => (
+    {
+      authorization: true,
+      endpoint: '/account/check',
+    }
+  )
 }
 
 export default api.mapToApi(endpoints)

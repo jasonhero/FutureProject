@@ -1,8 +1,9 @@
-import { loginFlow } from './features/authentication/sagas'
+import { loginFlow, watchAuthCheck } from './features/authentication/sagas'
 
 
 export default function* rootSaga() {
   yield [
-    loginFlow()
+    loginFlow(),
+    watchAuthCheck()
   ]
 }

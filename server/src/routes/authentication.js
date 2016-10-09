@@ -35,3 +35,10 @@ export const accountCreate = (req, res) => {
     })
   })
 }
+
+export const accountCheck = (req, res) => {
+  jwt.verify(req.headers['x-authorization'], config.get('secret'), (err, decoded) => {
+    if (err) return res.status(401).send();
+    res.status(200).send()
+  })
+}
