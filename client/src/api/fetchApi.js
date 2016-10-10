@@ -10,7 +10,7 @@ class FetchApi {
   }
 
   mergeEndpoint(endpoint) {
-    return `${this.service}${endpoint}`
+    return `${this.service}${encodeURI(endpoint)}`
   }
 
   mapToApi(endpoints) {
@@ -46,13 +46,15 @@ class FetchApi {
 
   resolveResponse(response) {
     const contentType = response.headers.get('content-type')
-    if (!contentType) throw new Error('No content type specified!');
+    if (!contentType) return response;
 
     if (contentType.indexOf("application/json") !== -1) {
       return response.json()
     } else if (contentType.indexOf("application/text") !== -1) {
       return response.text()
     }
+
+    return response
   }
 
   attachToken() {

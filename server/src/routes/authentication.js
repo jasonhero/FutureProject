@@ -15,7 +15,7 @@ export const accountLogin = (req, res) => {
 
       const token = jwt.sign({ _id: user._id }, config.get('secret'), { expiresIn: '1h'})
 
-      res.json({ token })
+      res.json({ account: { username: user.username }, token })
     })
   })
 }
@@ -38,7 +38,7 @@ export const accountCreate = (req, res) => {
 
 export const accountCheck = (req, res) => {
   jwt.verify(req.headers['x-authorization'], config.get('secret'), (err, decoded) => {
-    if (err) return res.status(401).json({ authenticated: false});
-    res.status(200).json({ authenticated: true})
+    if (err) return res.status(401).send();
+    res.status(200).send()
   })
 }

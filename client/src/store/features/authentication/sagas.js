@@ -46,9 +46,9 @@ function* authorizationCheck(action) {
     yield put({ type: c.AUTH_SUCCESS })
     yield call(action.callback)
   } catch (error) {
+    yield put({ type: c.AUTH_FAILURE, error })
     yield call(action.replace, '/')
     yield call(action.callback)
-    yield put({ type: c.AUTH_FAILURE, error })
   }
 }
 
